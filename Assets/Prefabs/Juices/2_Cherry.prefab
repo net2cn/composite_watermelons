@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Particle: {fileID: 21300000, guid: aaa988bb585920840a38c3234ae8f31d, type: 3}
   Explosion: {fileID: 21300000, guid: acab0d8718e7ed3438b93600800dd4c7, type: 3}
-  Slash: {fileID: 21300000, guid: ecfb42e29f3193047b1c55fa50e07943, type: 3}
+  Splash: {fileID: 21300000, guid: ecfb42e29f3193047b1c55fa50e07943, type: 3}

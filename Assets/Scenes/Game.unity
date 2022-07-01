@@ -406,16 +406,41 @@ MonoBehaviour:
   Fruits:
   - {fileID: 4378214317764953182, guid: 0444dce959efe624b89ee67307a2823f, type: 3}
   - {fileID: 8524411723462218610, guid: 39277a0984718f6469576b467c7c290c, type: 3}
-  - {fileID: 2017266694269008626, guid: 839d3e80f0ae90541bf3e9b520af9917, type: 3}
-  - {fileID: 6061317406926177155, guid: 5a41015e983544c46976bf80fc1a5fb1, type: 3}
-  - {fileID: 669463750658508323, guid: 97bf3cab8cc625d4e94d827be6e16fd7, type: 3}
-  - {fileID: 8595222558893450121, guid: c560f3d43d21fb24f8dca4685515c59b, type: 3}
-  - {fileID: 7472732965550299198, guid: e6b5d1556d0ae3549b962d8f19f126cc, type: 3}
-  - {fileID: 2902584925733753040, guid: ba9db09799b79944d94111015a582bdf, type: 3}
-  - {fileID: 7970583490224066243, guid: 26cecc0e38f31e84a909e0f3a9d38939, type: 3}
-  - {fileID: 7395515549476570799, guid: 80d290bf4885539409b6320e427c4bcd, type: 3}
-  - {fileID: 1895425569011151864, guid: 43bbca29daafdbb4bab7be0f1636d323, type: 3}
+  - {fileID: 4867545191959758987, guid: 839d3e80f0ae90541bf3e9b520af9917, type: 3}
+  - {fileID: 895121074448462330, guid: 5a41015e983544c46976bf80fc1a5fb1, type: 3}
+  - {fileID: 5852518379034588250, guid: 97bf3cab8cc625d4e94d827be6e16fd7, type: 3}
+  - {fileID: 3403145367746367984, guid: c560f3d43d21fb24f8dca4685515c59b, type: 3}
+  - {fileID: 4595431684349323847, guid: e6b5d1556d0ae3549b962d8f19f126cc, type: 3}
+  - {fileID: 8086835808105849513, guid: ba9db09799b79944d94111015a582bdf, type: 3}
+  - {fileID: 3958392194664725690, guid: 26cecc0e38f31e84a909e0f3a9d38939, type: 3}
+  - {fileID: 4526150590968935638, guid: 80d290bf4885539409b6320e427c4bcd, type: 3}
+  - {fileID: 4773776357280137601, guid: 43bbca29daafdbb4bab7be0f1636d323, type: 3}
   FruitsParent: {fileID: 140642339}
+  GenerateProbability:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  MaxGenerateId: 3
   Juices:
   - {fileID: 3529023407256557096, guid: 29b2755fce5147842a458fd08ec283b4, type: 3}
   - {fileID: 2193458153872564304, guid: 5bb95c24557335b4f8bb93fa8bd6a706, type: 3}
@@ -427,30 +452,9 @@ MonoBehaviour:
   - {fileID: 4290326902817979947, guid: d8e534b8a37858545a0ef8a9a46b8048, type: 3}
   - {fileID: 7519672173390907698, guid: a3c09f31b40e97a4ca67a66353663715, type: 3}
   - {fileID: 2827341498651981108, guid: f427bdaab24fe494aab809ba58771b59, type: 3}
-  GenerateProbability:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 3
-      inSlope: -3
-      outSlope: -3
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -3
-      outSlope: -3
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  BoomAudio: {fileID: 8300000, guid: 222767bb8658bc74a855069d17d149be, type: 3}
+  JuiceAudio: {fileID: 8300000, guid: ce18a343fcb672f4eb6de763c181a67c, type: 3}
+  KnockAudio: {fileID: 8300000, guid: 9540a55b3d8f9e245976a1dba0318ae0, type: 3}
   ScoreLabel: {fileID: 1837647231}
 --- !u!1 &1837647228
 GameObject:
