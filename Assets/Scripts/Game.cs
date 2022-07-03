@@ -38,7 +38,7 @@ public class Game : MonoBehaviour
         {
             var clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             clickedPosition.x = Mathf.Clamp(clickedPosition.x, -screenBounds.x+currentFruit.GetComponent<SpriteRenderer>().bounds.extents.x, screenBounds.x-currentFruit.GetComponent<SpriteRenderer>().bounds.extents.x);
-            Debug.Log(clickedPosition);
+            // Debug.Log(clickedPosition);
             var temp = currentFruit;
             currentFruit = null;
             temp.transform.DOMoveX(clickedPosition.x, 0.3f).OnComplete(() =>
@@ -56,7 +56,7 @@ public class Game : MonoBehaviour
             // Using the AnimationCurve as the probability curve.
             int id = Mathf.RoundToInt(Mathf.Clamp(1f - GenerateProbability.Evaluate(Random.value), 0.1f, 1f) * MaxGenerateId);
             Vector2 rUCorner = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, Camera.main.nearClipPlane));
-            generatePoint = new Vector2(0, rUCorner.y * 0.7f);
+            generatePoint = new Vector2(0, rUCorner.y * 0.8f);
 
             currentFruit = CreateFruitOnPos(generatePoint.x, generatePoint.y, id);
             currentFruit.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;

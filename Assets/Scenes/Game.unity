@@ -376,6 +376,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoundriesPhysicsMaterial: {fileID: 6200000, guid: 6cbc4f5f445a27b45be158c87ef7e723, type: 2}
+  LostHeightPercentage: 0.7
+  WarnHeightPercentage: 0.1
+  LostLineWidth: 0.008
+  LostLineColor: {r: 255, g: 0, b: 0, a: 1}
+  LoseLineMaterial: {fileID: 2100000, guid: 2fb26cf900ea7494f93ad51734a84ccb, type: 2}
 --- !u!4 &769210872
 Transform:
   m_ObjectHideFlags: 0
