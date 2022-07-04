@@ -22,6 +22,8 @@ public class GameLose : MonoBehaviour
                 {
                     IsLost = true;
                     Debug.Log($"Game Lost on {Time.time}!");
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().ShowGameLost();
+                    triggered = 0;
                 }
             }
             routine=StartCoroutine(gameLoseDetection());
@@ -32,10 +34,21 @@ public class GameLose : MonoBehaviour
     {
         triggered -= 1;
         Debug.Log($"triggered: {triggered}");
-        if (triggered == 0 && routine!=null)
+        if (triggered <= 0 && routine!=null)
         {
             Debug.Log($"Stop countdown coroutine");
+            triggered = 0;
             StopCoroutine(routine);
         }
+    }
+
+    public void ResetTriggered()
+    {
+        triggered = 0;
+        if (routine!=null)
+        {
+            StopCoroutine(routine);
+        }
+        IsLost = false;
     }
 }

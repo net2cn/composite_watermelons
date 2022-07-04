@@ -9,21 +9,25 @@ public class Fruit : MonoBehaviour
 
     private bool isFirstCollison = true;
     private bool isProcessing = false;
-    private int maxId = 0;
+    private int maxId = 0; // Inclusive
 
     void Start()
     {
         GetComponent<CircleCollider2D>().radius = this.GetComponent<SpriteRenderer>().bounds.extents.x;
         GetComponent<Rigidbody2D>().mass = Mathf.Pow(GetComponent<SpriteRenderer>().bounds.extents.x, 2) * Mathf.PI*5;
         //Debug.Log(GetComponent<SpriteRenderer>().bounds.extents.x);
-        maxId = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().Fruits.Length;
+        maxId = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().Fruits.Length-1;
+        if (Id == maxId)
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().ShowWinningAnimation();
+        }
     }
 
     private void FixedUpdate()
     {
         if (transform.position.y < -Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z)).y*2)
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().InitNewFruit();
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().InitNewFruit();
             Destroy(gameObject);
         }
     }
@@ -34,14 +38,14 @@ public class Fruit : MonoBehaviour
         // AudioSource.PlayClipAtPoint(GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().KnockAudio, new Vector3(0,0));
         if (isFirstCollison)
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().InitNewFruit();
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().InitNewFruit();
             isFirstCollison = false;
         }
 
         Fruit collided = collision.gameObject.GetComponent<Fruit>();
         if (collided)
         {
-            if (!isProcessing && collided.Id == Id && Id<maxId-1)
+            if (!isProcessing && collided.Id == Id && Id<maxId)
             {
                 collided.isProcessing = true;
                 
@@ -52,8 +56,8 @@ public class Fruit : MonoBehaviour
                 
                 collided.transform.DOMove(transform.position, 0.3f).OnComplete(() =>
                 {
-                    var newFruit = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().CreateFruitOnPos(collided.transform.position.x, collided.transform.position.y, Id + 1);
-                    GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().CreateJuiceOnPos(collided.transform.position.x, collided.transform.position.y , Id);
+                    var newFruit = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().CreateFruitOnPos(collided.transform.position.x, collided.transform.position.y, Id + 1);
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().CreateJuiceOnPos(collided.transform.position.x, collided.transform.position.y , Id);
                     
                     newFruit.GetComponent<Fruit>().isFirstCollison = false;
                     var originalScale = newFruit.transform.localScale;
