@@ -1,6 +1,8 @@
 # composite_watermelons
 A Unity 2021.3.4f powered reproduction game of the "Composite Big Watermelons".
 
+[[WebGL Demo]](https://net2cn.github.io/composite_watermelons/) (On mobile platforms, sound effects may not be played properly.)
+
 ## Usage
 C'mon, it's Unity project. Just learn the basics and you'll know how to build the project.
 
