@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour
                 {
                     temp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                     temp.GetComponent<CircleCollider2D>().enabled = true;
+                    InitNewFruit();
                 });
             }
             else if (gameOver)
@@ -154,37 +155,41 @@ public class GameController : MonoBehaviour
     {
         isOperatable = false;
 
-        GameObject canvas = GameObject.Find("Canvas");
-        GameObject losingParent = new GameObject("LosingParent");
-        losingParent.transform.SetParent(canvas.transform);
-
-        Sequence tween = DOTween.Sequence();
-
-        SpriteRenderer blackScreen = new GameObject("BlackScreen").AddComponent<SpriteRenderer>();
-        blackScreen.transform.SetParent(losingParent.transform);
-        blackScreen.transform.localScale = screenBounds * 2;
-        blackScreen.sprite = Sprite.Create(new Texture2D(100, 100), new Rect(0, 0, 100, 100), new Vector2(0.5f, 0.5f));
-        blackScreen.sortingOrder = 10;
-        blackScreen.color = new Color(0, 0, 0, 0);
-        tween.Insert(0, blackScreen.DOColor(new Color(0, 0, 0, 0.9f), 0.3f));
-
-        Text gameOver = new GameObject("GameOver").AddComponent<Text>();
-        gameOver.transform.SetParent(losingParent.transform);
-        float widthScale = 1/(screenBounds.x < screenBounds.y ? screenBounds.x*4 : screenBounds.y*2);
-        gameOver.transform.localScale = new Vector3(widthScale, widthScale);
-        gameOver.color = new Color(1f, 1f, 1f, 0f);
-        gameOver.text = "Game Over!";
-        gameOver.alignment = TextAnchor.MiddleCenter;
-        gameOver.fontSize = 8;
-        
-        gameOver.font = ScoreLabel.font;
-        tween.Insert(0.5f, gameOver.DOColor(new Color(1f, 1f, 1f, 1f), 0.3f));
-
-        tween.Play();
-        tween.OnComplete(() =>
+        if (!GameObject.Find("LosingParent"))
         {
-            this.gameOver = true;
-        });
+            GameObject canvas = GameObject.Find("Canvas");
+            GameObject losingParent = new GameObject("LosingParent");
+
+            losingParent.transform.SetParent(canvas.transform);
+
+            Sequence tween = DOTween.Sequence();
+
+            SpriteRenderer blackScreen = new GameObject("BlackScreen").AddComponent<SpriteRenderer>();
+            blackScreen.transform.SetParent(losingParent.transform);
+            blackScreen.transform.localScale = screenBounds * 2;
+            blackScreen.sprite = Sprite.Create(new Texture2D(100, 100), new Rect(0, 0, 100, 100), new Vector2(0.5f, 0.5f));
+            blackScreen.sortingOrder = 10;
+            blackScreen.color = new Color(0, 0, 0, 0);
+            tween.Insert(0, blackScreen.DOColor(new Color(0, 0, 0, 0.9f), 0.3f));
+
+            Text gameOver = new GameObject("GameOver").AddComponent<Text>();
+            gameOver.transform.SetParent(losingParent.transform);
+            float widthScale = 1 / (screenBounds.x < screenBounds.y ? screenBounds.x * 4 : screenBounds.y * 2);
+            gameOver.transform.localScale = new Vector3(widthScale, widthScale);
+            gameOver.color = new Color(1f, 1f, 1f, 0f);
+            gameOver.text = "Game Over!";
+            gameOver.alignment = TextAnchor.MiddleCenter;
+            gameOver.fontSize = 8;
+
+            gameOver.font = ScoreLabel.font;
+            tween.Insert(0.5f, gameOver.DOColor(new Color(1f, 1f, 1f, 1f), 0.3f));
+
+            tween.Play();
+            tween.OnComplete(() =>
+            {
+                this.gameOver = true;
+            });
+        }
     }
     
     void RestartGame()

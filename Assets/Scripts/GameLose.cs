@@ -18,12 +18,11 @@ public class GameLose : MonoBehaviour
             {
                 Debug.Log($"Start game lose detection countdown on {Time.time}.");
                 yield return new WaitForSeconds(5);
-                if (triggered > 0)
+                if (triggered > 0 && !IsLost)
                 {
                     IsLost = true;
                     Debug.Log($"Game Lost on {Time.time}!");
                     GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().ShowGameLost();
-                    triggered = 0;
                 }
             }
             routine=StartCoroutine(gameLoseDetection());

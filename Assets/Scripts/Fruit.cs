@@ -38,7 +38,7 @@ public class Fruit : MonoBehaviour
         // AudioSource.PlayClipAtPoint(GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().KnockAudio, new Vector3(0,0));
         if (isFirstCollison)
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().InitNewFruit();
+            //GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().InitNewFruit();
             isFirstCollison = false;
         }
 
