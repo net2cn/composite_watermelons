@@ -43,10 +43,11 @@ public class Fruit : MonoBehaviour
         }
 
         Fruit collided = collision.gameObject.GetComponent<Fruit>();
-        if (collided)
+        if (collided && !isProcessing && !collided.isProcessing)
         {
-            if (!isProcessing && collided.Id == Id && Id<maxId)
+            if (collided.Id == Id && Id<maxId)
             {
+                isProcessing = true;
                 collided.isProcessing = true;
                 
                 GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
