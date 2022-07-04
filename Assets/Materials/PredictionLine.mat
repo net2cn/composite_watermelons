@@ -72,7 +72,7 @@ Material:
     - _Offset: 0.27
     - _Parallax: 0.02
     - _Ratio: 0.25
-    - _Rep: 25
+    - _Rep: 60
     - _RepeatCount: 100
     - _Sharpness: 100
     - _SmoothnessTextureChannel: 0

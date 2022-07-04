@@ -39,7 +39,7 @@
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
-                o.uv.x = o.uv.x * _Rep * ( _Spacing);
+                o.uv.x = o.uv.x * _Rep* (_ScreenParams.x / 1080) *  _Spacing ;
   
                 o.color = v.color;
 
