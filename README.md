@@ -4,6 +4,8 @@ A Unity 2021.3.4f powered reproduction game of the "Composite Big Watermelons".
 ## Usage
 C'mon, it's Unity project. Just learn the basics and you'll know how to build the project.
 
+![screenshot](img/screenshot_2022-07-04_172829.png)
+
 ## Build Prerequisites
 - Unity 2021.3.4f1c1 (this is the exact version of the Unity that this game is produced with.)
 - Visual Studio 2022 (2019 works too.)
