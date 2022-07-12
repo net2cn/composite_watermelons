@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
 
     private bool isOperatable = true;
     private bool gameOver = false;
+    private bool isHeld = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,20 +47,34 @@ public class GameController : MonoBehaviour
                 var clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 clickedPosition.x = Mathf.Clamp(clickedPosition.x, -screenBounds.x + currentFruit.GetComponent<SpriteRenderer>().bounds.extents.x, screenBounds.x - currentFruit.GetComponent<SpriteRenderer>().bounds.extents.x);
                 // Debug.Log(clickedPosition);
-                var temp = currentFruit;
-                currentFruit = null;
-                temp.transform.DOMoveX(clickedPosition.x, 0.3f).OnComplete(() =>
-                {
-                    temp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                    temp.GetComponent<CircleCollider2D>().enabled = true;
-                    InitNewFruit();
-                });
+                currentFruit.transform.DOMoveX(clickedPosition.x, 0.3f);
             }
             else if (gameOver)
             {
                 Debug.Log("Restart Game.");
                 RestartGame();
             }
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            var clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            clickedPosition.x = Mathf.Clamp(clickedPosition.x, -screenBounds.x + currentFruit.GetComponent<SpriteRenderer>().bounds.extents.x, screenBounds.x - currentFruit.GetComponent<SpriteRenderer>().bounds.extents.x);
+            if (Mathf.Abs(clickedPosition.x - currentFruit.transform.position.x) < 0.1f || isHeld)
+            {
+                isHeld = true;
+                clickedPosition.y = currentFruit.transform.position.y;
+                clickedPosition.z = currentFruit.transform.position.z;
+                currentFruit.transform.position = clickedPosition;
+            }
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isHeld = false;
+            var temp = currentFruit;
+            currentFruit = null;
+            temp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            temp.GetComponent<CircleCollider2D>().enabled = true;
+            InitNewFruit();
         }
     }
 
@@ -78,7 +93,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public GameObject CreateFruitOnPos(float x, float y, int id=0)
+    public GameObject CreateFruitOnPos(float x, float y, int id = 0)
     {
         var fruit = CreateFruit(id);
         fruit.transform.position = new Vector3(x, y, 0);
@@ -93,7 +108,7 @@ public class GameController : MonoBehaviour
         return fruit;
     }
 
-    public void CreateJuiceOnPos(float x, float y, int id=0)
+    public void CreateJuiceOnPos(float x, float y, int id = 0)
     {
         var juice = Instantiate(Juices[id]);
         juice.transform.SetParent(FruitsParent.transform);
@@ -116,8 +131,8 @@ public class GameController : MonoBehaviour
 
         SpriteRenderer blackScreen = new GameObject("BlackScreen").AddComponent<SpriteRenderer>();
         blackScreen.transform.SetParent(winningParent.transform);
-        blackScreen.transform.localScale = screenBounds*2;
-        blackScreen.sprite = Sprite.Create(new Texture2D(100, 100), new Rect(0,0,100,100),new Vector2(0.5f,0.5f));
+        blackScreen.transform.localScale = screenBounds * 2;
+        blackScreen.sprite = Sprite.Create(new Texture2D(100, 100), new Rect(0, 0, 100, 100), new Vector2(0.5f, 0.5f));
         blackScreen.sortingOrder = 10;
         blackScreen.color = new Color(0, 0, 0, 0);
         tween.Insert(0, blackScreen.DOColor(new Color(0, 0, 0, 0.8f), 0.1f));
@@ -125,14 +140,14 @@ public class GameController : MonoBehaviour
 
         SpriteRenderer flash = new GameObject("Flash").AddComponent<SpriteRenderer>();
         flash.transform.SetParent(winningParent.transform);
-        flash.transform.localScale = new Vector3((screenBounds.x<screenBounds.y?screenBounds.x:screenBounds.y)*0.8f, (screenBounds.x<screenBounds.y?screenBounds.x:screenBounds.y)*0.8f);
+        flash.transform.localScale = new Vector3((screenBounds.x < screenBounds.y ? screenBounds.x : screenBounds.y) * 0.8f, (screenBounds.x < screenBounds.y ? screenBounds.x : screenBounds.y) * 0.8f);
         flash.sprite = Flash;
         flash.sortingOrder = 11;
         flash.color = new Color(1f, 1f, 1f, 0.6f);
         tween.Insert(0, flash.DOColor(new Color(1, 1, 1, 1f), 0.1f));
         tween.Insert(0, flash.transform.DORotate(new Vector3(0, 0, -270f), 1.2f));
         tween.Insert(0, flash.transform.DOScale(screenBounds.x < screenBounds.y ? screenBounds.x : screenBounds.y, 0.2f));
-        tween.Insert(0.8f, flash.transform.DOScale((screenBounds.x < screenBounds.y ? screenBounds.x : screenBounds.y)*0.8f, 0.4f));
+        tween.Insert(0.8f, flash.transform.DOScale((screenBounds.x < screenBounds.y ? screenBounds.x : screenBounds.y) * 0.8f, 0.4f));
         tween.Insert(0.8f, flash.DOColor(new Color(1f, 1f, 1f, 0.8f), 0.4f));
 
         SpriteRenderer watermelon = new GameObject("Watermelon").AddComponent<SpriteRenderer>();
@@ -191,7 +206,7 @@ public class GameController : MonoBehaviour
             });
         }
     }
-    
+
     void RestartGame()
     {
         gameOver = false;
@@ -202,7 +217,7 @@ public class GameController : MonoBehaviour
         {
             Destroy(childTransform.gameObject);
         }
-        
+
         GameObject.Find("GameLoseEdge").GetComponent<GameLose>().ResetTriggered();
 
         gameScore = 0;
@@ -219,7 +234,7 @@ public class GameController : MonoBehaviour
 
     void AddScore(int id)
     {
-        gameScore += (id+1) * 2;
+        gameScore += (id + 1) * 2;
         ScoreLabel.text = gameScore.ToString();
     }
 }
